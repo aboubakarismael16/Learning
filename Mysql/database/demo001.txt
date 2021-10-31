@@ -1,0 +1,299 @@
+mysql day01课堂笔记
+
+1、什么是数据库？什么是数据库管理系统？什么是SQL？他们之间的关系是什么？
+
+	数据库：
+		英文单词DataBase，简称DB。按照一定格式存储数据的一些文件的组合。
+		顾名思义：存储数据的仓库，实际上就是一堆文件。这些文件中存储了
+		具有特定格式的数据。
+
+	数据库管理系统：
+		DataBaseManagement，简称DBMS。
+		数据库管理系统是专门用来管理数据库中数据的，数据库管理系统可以
+		对数据库当中的数据进行增删改查。
+
+		常见的数据库管理系统：
+			MySQL、Oracle、MS SqlServer、DB2、sybase等....
+	
+	SQL：结构化查询语言
+		程序员需要学习SQL语句，程序员通过编写SQL语句，然后DBMS负责执行SQL
+		语句，最终来完成数据库中数据的增删改查操作。
+
+		SQL是一套标准，程序员主要学习的就是SQL语句，这个SQL在mysql中可以使用，
+		同时在Oracle中也可以使用，在DB2中也可以使用。
+	
+	三者之间的关系？
+		DBMS--执行--> SQL --操作--> DB
+	
+	先安装数据库管理系统MySQL，然后学习SQL语句怎么写，编写SQL语句之后，DBMS
+	对SQL语句进行执行，最终来完成数据库的数据管理。
+
+
+2、安装MySQL数据库管理系统。
+	第一步：先安装，选择“经典版”
+	第二步：需要进行MySQL数据库实例配置。
+
+	注意：一路下一步就行了！！！！！
+
+	需要注意的事项？
+		端口号：
+			端口号port是任何一个软件/应用都会有的，端口号是应用的唯一代表。
+			端口号通常和IP地址在一块，IP地址用来定位计算机的，端口号port
+			是用来定位计算机上某个服务的/某个应用的！
+			在同一台计算机上，端口号不能重复。具有唯一性。
+
+			mysql数据库启动的时候，这个服务占有的默认端口号是3306
+			这是大家都知道的事儿。记住。
+		
+		字符编码方式？
+			设置mysql数据库的字符编码方式为 UTF8
+			一定要注意：先选中第3个单选按钮，然后再选择utf8字符集。
+		
+		服务名称？
+			默认是：MySQL
+			不用改。
+		
+		选择配置环境变量path：
+			如果没有选择怎么办？你可以手动配置
+			path=其它路径;C:\Program Files (x86)\MySQL\MySQL Server 5.5\bin
+		
+		mysql超级管理员用户名不能改，一定是：root
+		你需要设置mysql数据库超级管理员的密码。
+		我们设置为123456
+
+		设置密码的同时，可以激活root账户远程访问。
+		激活：表示root账号可以在外地登录。
+		不激活：表示root账号只能在本机上使用。
+		我这里选择激活了！
+
+3、MySQL数据库的完美卸载！
+	第一步：双击安装包进行卸载删除。
+	第二步：删除目录：
+		把C:\ProgramData下面的MySQL目录干掉。
+		把C:\Program Files (x86)下面的MySQL目录干掉。
+
+	这样就卸载结束了！
+
+4、看一下计算机上的服务，找一找MySQL的服务在哪里？
+	计算机-->右键-->管理-->服务和应用程序-->服务-->找mysql服务
+	MySQL的服务，默认是“启动”的状态，只有启动了mysql才能用。
+	默认情况下是“自动”启动，自动启动表示下一次重启操作系统的时候
+	自动启动该服务。
+
+	可以在服务上点击右键：
+		启动
+		重启服务
+		停止服务
+		...
+	
+	还可以改变服务的默认配置：
+		服务上点击右键，属性，然后可以选择启动方式：
+			自动（延迟启动）
+			自动
+			手动
+			禁用
+
+5、在windows操作系统当中，怎么使用命令来启动和关闭mysql服务呢？
+	语法：
+		net stop 服务名称;
+		net start 服务名称;
+
+	其它服务的启停都可以采用以上的命令。
+
+6、mysql安装了，服务启动了，怎么使用客户端登录mysql数据库呢？
+	使用bin目录下的mysql.exe命令来连接mysql数据库服务器
+
+	本地登录（显示编写密码的形式）：
+		C:\Users\Administrator>mysql -uroot -p123456
+		Welcome to the MySQL monitor.  Commands end with ; or \g.
+		Your MySQL connection id is 1
+		Server version: 5.5.36 MySQL Community Server (GPL)
+
+		Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+		Oracle is a registered trademark of Oracle Corporation and/or its
+		affiliates. Other names may be trademarks of their respective
+		owners.
+
+		Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+		mysql>
+	
+	本地登录（隐藏密码的形式）：
+		C:\Users\Administrator>mysql -uroot -p
+		Enter password: ******
+		Welcome to the MySQL monitor.  Commands end with ; or \g.
+		Your MySQL connection id is 2
+		Server version: 5.5.36 MySQL Community Server (GPL)
+
+		Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+		Oracle is a registered trademark of Oracle Corporation and/or its
+		affiliates. Other names may be trademarks of their respective
+		owners.
+
+		Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+		mysql>
+
+
+7、mysql常用命令：
+
+	退出mysql ：exit
+
+	查看mysql中有哪些数据库？
+		show databases; 
+		注意：以分号结尾，分号是英文的分号。
+	
+	mysql> show databases;
+	+--------------------+
+	| Database           |
+	+--------------------+
+	| information_schema |
+	| mysql              |
+	| performance_schema |
+	| test               |
+	+--------------------+
+	mysql默认自带了4个数据库。
+
+	怎么选择使用某个数据库呢？
+		mysql> use test;
+		Database changed
+		表示正在使用一个名字叫做test的数据库。
+	
+	怎么创建数据库呢？
+		mysql> create database bjpowernode;
+		Query OK, 1 row affected (0.00 sec)
+
+		mysql> show databases;
+		+--------------------+
+		| Database           |
+		+--------------------+
+		| information_schema |
+		| bjpowernode        |
+		| mysql              |
+		| performance_schema |
+		| test               |
+		+--------------------+
+	
+	查看某个数据库下有哪些表？
+		mysql> show tables;
+	
+	注意：以上的命令不区分大小写，都行。
+
+	查看mysql数据库的版本号：
+	mysql> select version();
+		+-----------+
+		| version() |
+		+-----------+
+		| 5.5.36    |
+		+-----------+
+	
+	查看当前使用的是哪个数据库？
+	mysql> select database();
+	+-------------+
+	| database()  |
+	+-------------+
+	| bjpowernode |
+	+-------------+
+	
+	mysql> show
+    -> databases
+    -> ;
+	+--------------------+
+	| Database           |
+	+--------------------+
+	| information_schema |
+	| bjpowernode        |
+	| mysql              |
+	| performance_schema |
+	| test               |
+	+--------------------+
+
+	注意：mysql是不见“;”不执行，“;”表示结束！
+
+	mysql> show
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    -> \c
+	mysql>
+	\c用来终止一条命令的输入。
+
+
+8、数据库当中最基本的单元是表：table
+
+	什么是表table？为什么用表来存储数据呢？
+
+		姓名	性别	年龄(列：字段) 
+		---------------------------
+		张三	男			20            ------->行（记录）
+		李四	女			21            ------->行（记录）
+		王五	男			22            ------->行（记录）
+	
+	数据库当中是以表格的形式表示数据的。
+	因为表比较直观。
+
+	任何一张表都有行和列：
+		行（row）：被称为数据/记录。
+		列（column）：被称为字段。
+	
+	姓名字段、性别字段、年龄字段。
+
+	了解一下：
+		每一个字段都有：字段名、数据类型、约束等属性。
+		字段名可以理解，是一个普通的名字，见名知意就行。
+		数据类型：字符串，数字，日期等，后期讲。
+
+		约束：约束也有很多，其中一个叫做唯一性约束，
+			这种约束添加之后，该字段中的数据不能重复。
+
+9、关于SQL语句的分类？
+
+	SQL语句有很多，最好进行分门别类，这样更容易记忆。
+		分为：
+			DQL：
+				数据查询语言（凡是带有select关键字的都是查询语句）
+				select...
+
+			DML：
+				数据操作语言（凡是对表当中的数据进行增删改的都是DML）
+				insert delete update
+				insert 增
+				delete 删
+				update 改
+
+				这个主要是操作表中的数据data。
+
+			DDL：
+				数据定义语言
+				凡是带有create、drop、alter的都是DDL。
+				DDL主要操作的是表的结构。不是表中的数据。
+				create：新建，等同于增
+				drop：删除
+				alter：修改
+				这个增删改和DML不同，这个主要是对表结构进行操作。
+
+			TCL：
+				不是王牌电视。
+				是事务控制语言
+				包括：
+					事务提交：commit;
+					事务回滚：rollback;
+
+			DCL：
+				是数据控制语言。
+				例如：授权grant、撤销权限revoke....
+
+
+10、导入一下提前准备好的数据：
+	bjpowernode.sql 这个文件中是我提前为大家练习准备的数据库表。
+	怎么将sql文件中的数据导入呢？
+		mysql> source D:\course\03-MySQL\document\bjpowernode.sql
+
+		注意：路径中不要有中文！！！！
