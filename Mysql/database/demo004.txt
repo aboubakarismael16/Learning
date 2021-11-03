@@ -1,0 +1,544 @@
+15、排序
+
+15.1、查询所有员工薪资，排序？
+	select 
+		ename,sal
+	from
+		emp
+	order by
+		sal; // 默认是升序！！！
+
+	+--------+---------+
+	| ename  | sal     |
+	+--------+---------+
+	| SMITH  |  800.00 |
+	| JAMES  |  950.00 |
+	| ADAMS  | 1100.00 |
+	| WARD   | 1250.00 |
+	| MARTIN | 1250.00 |
+	| MILLER | 1300.00 |
+	| TURNER | 1500.00 |
+	| ALLEN  | 1600.00 |
+	| CLARK  | 2450.00 |
+	| BLAKE  | 2850.00 |
+	| JONES  | 2975.00 |
+	| FORD   | 3000.00 |
+	| SCOTT  | 3000.00 |
+	| KING   | 5000.00 |
+	+--------+---------+
+
+15.2、怎么降序？
+
+	指定降序：
+	select 
+		ename,sal
+	from
+		emp
+	order by
+		sal desc;
+
++--------+---------+
+| ename  | sal     |
++--------+---------+
+| KING   | 5000.00 |
+| SCOTT  | 3000.00 |
+| FORD   | 3000.00 |
+| JONES  | 2975.00 |
+| BLAKE  | 2850.00 |
+| CLARK  | 2450.00 |
+| ALLEN  | 1600.00 |
+| TURNER | 1500.00 |
+| MILLER | 1300.00 |
+| MARTIN | 1250.00 |
+| WARD   | 1250.00 |
+| ADAMS  | 1100.00 |
+| JAMES  |  950.00 |
+| SMITH  |  800.00 |
++--------+---------+
+
+	指定升序？
+	select 
+		ename,sal
+	from
+		emp
+	order by
+		sal asc;
+
++--------+---------+
+| ename  | sal     |
++--------+---------+
+| SMITH  |  800.00 |
+| JAMES  |  950.00 |
+| ADAMS  | 1100.00 |
+| WARD   | 1250.00 |
+| MARTIN | 1250.00 |
+| MILLER | 1300.00 |
+| TURNER | 1500.00 |
+| ALLEN  | 1600.00 |
+| CLARK  | 2450.00 |
+| BLAKE  | 2850.00 |
+| JONES  | 2975.00 |
+| FORD   | 3000.00 |
+| SCOTT  | 3000.00 |
+| KING   | 5000.00 |
++--------+---------+
+
+15.3、可以两个字段排序吗？或者说按照多个字段排序？
+	查询员工名字和薪资，要求按照薪资升序，如果薪资一样的话，
+	再按照名字升序排列。
+	select 
+		ename,sal
+	from
+		emp
+	order by
+		sal asc, ename asc; // sal在前，起主导，只有sal相等的时候，才会考虑启用ename排序。
+
+	+--------+---------+
+	| ename  | sal     |
+	+--------+---------+
+	| SMITH  |  800.00 |
+	| JAMES  |  950.00 |
+	| ADAMS  | 1100.00 |
+	| MARTIN | 1250.00 |
+	| WARD   | 1250.00 |
+	| MILLER | 1300.00 |
+	| TURNER | 1500.00 |
+	| ALLEN  | 1600.00 |
+	| CLARK  | 2450.00 |
+	| BLAKE  | 2850.00 |
+	| JONES  | 2975.00 |
+	| FORD   | 3000.00 |
+	| SCOTT  | 3000.00 |
+	| KING   | 5000.00 |
+	+--------+---------+
+
+15.4、了解：根据字段的位置也可以排序
+	select ename,sal from emp order by 2; // 2表示第二列。第二列是sal
+	按照查询结果的第2列sal排序。
+
+	了解一下，不建议在开发中这样写，因为不健壮。
+	因为列的顺序很容易发生改变，列顺序修改之后，2就废了。
+
+16、综合一点的案例：
+	找出工资在1250到3000之间的员工信息，要求按照薪资降序排列。
+	select 
+		ename,sal
+	from
+		emp
+	where
+		sal between 1250 and 3000
+	order by
+		sal desc;
+
++--------+---------+
+| ename  | sal     |
++--------+---------+
+| FORD   | 3000.00 |
+| SCOTT  | 3000.00 |
+| JONES  | 2975.00 |
+| BLAKE  | 2850.00 |
+| CLARK  | 2450.00 |
+| ALLEN  | 1600.00 |
+| TURNER | 1500.00 |
+| MILLER | 1300.00 |
+| MARTIN | 1250.00 |
+| WARD   | 1250.00 |
++--------+---------+
+	
+	关键字顺序不能变：
+		select
+			...
+		from
+			...
+		where
+			...
+		order by
+			...
+		
+		以上语句的执行顺序必须掌握：
+			第一步：from
+			第二步：where
+			第三步：select
+			第四步：order by（排序总是在最后执行！）
+
+17、数据处理函数
+
+17.1、数据处理函数又被称为单行处理函数
+
+	单行处理函数的特点：一个输入对应一个输出。
+
+	和单行处理函数相对的是：多行处理函数。（多行处理函数特点：多个输入，对应1个输出！）
+
+17.2、单行处理函数常见的有哪些？
+
+	lower 转换小写
+		mysql> select lower(ename) as ename from emp;
+		+--------+
+		| ename  |
+		+--------+
+		| smith  |
+		| allen  |
+		| ward   |
+		| jones  |
+		| martin |
+		| blake  |
+		| clark  |
+		| scott  |
+		| king   |
+		| turner |
+		| adams  |
+		| james  |
+		| ford   |
+		| miller |
+		+--------+
+		14个输入，最后还是14个输出。这是单行处理函数的特点。
+
+	upper 转换大写
+		mysql> select * from t_student;
+		+----------+
+		| name     |
+		+----------+
+		| zhangsan |
+		| lisi     |
+		| wangwu   |
+		| jack_son |
+		+----------+
+
+		mysql> select upper(name) as name from t_student;
+		+----------+
+		| name     |
+		+----------+
+		| ZHANGSAN |
+		| LISI     |
+		| WANGWU   |
+		| JACK_SON |
+		+----------+
+
+	substr 取子串（substr( 被截取的字符串, 起始下标,截取的长度)）
+		select substr(ename, 1, 1) as ename from emp;
+		注意：起始下标从1开始，没有0.
+		找出员工名字第一个字母是A的员工信息？
+			第一种方式：模糊查询
+				select ename from emp where ename like 'A%';
+			第二种方式：substr函数
+				select 
+					ename 
+				from 
+					emp 
+				where 
+					substr(ename,1,1) = 'A';
+
+		首字母大写？
+			select name from t_student;
+			select upper(substr(name,1,1)) from t_student;
+			select substr(name,2,length(name) - 1) from t_student;
+			select concat(upper(substr(name,1,1)),substr(name,2,length(name) - 1)) as result from t_student;
+			+----------+
+			| result   |
+			+----------+
+			| Zhangsan |
+			| Lisi     |
+			| Wangwu   |
+			| Jack_son |
+			+----------+
+		
+	concat函数进行字符串的拼接
+		select concat(empno,ename) from emp;
+		+---------------------+
+		| concat(empno,ename) |
+		+---------------------+
+		| 7369SMITH           |
+		| 7499ALLEN           |
+		| 7521WARD            |
+		| 7566JONES           |
+		| 7654MARTIN          |
+		| 7698BLAKE           |
+		| 7782CLARK           |
+		| 7788SCOTT           |
+		| 7839KING            |
+		| 7844TURNER          |
+		| 7876ADAMS           |
+		| 7900JAMES           |
+		| 7902FORD            |
+		| 7934MILLER          |
+		+---------------------+
+
+	length 取长度
+		select length(ename) enamelength from emp;
+		+-------------+
+		| enamelength |
+		+-------------+
+		|           5 |
+		|           5 |
+		|           4 |
+		|           5 |
+		|           6 |
+		|           5 |
+		|           5 |
+		|           5 |
+		|           4 |
+		|           6 |
+		|           5 |
+		|           5 |
+		|           4 |
+		|           6 |
+		+-------------+
+
+	trim 去空格
+		mysql> select * from emp where ename = '  KING';
+		Empty set (0.00 sec)
+
+		mysql> select * from emp where ename = trim('   KING');
+		+-------+-------+-----------+------+------------+---------+------+--------+
+		| EMPNO | ENAME | JOB       | MGR  | HIREDATE   | SAL     | COMM | DEPTNO |
+		+-------+-------+-----------+------+------------+---------+------+--------+
+		|  7839 | KING  | PRESIDENT | NULL | 1981-11-17 | 5000.00 | NULL |     10 |
+		+-------+-------+-----------+------+------------+---------+------+--------+
+
+	str_to_date 将字符串转换成日期
+	date_format 格式化日期
+	format 设置千分位
+
+	case..when..then..when..then..else..end
+		当员工的工作岗位是MANAGER的时候，工资上调10%，当工作岗位是SALESMAN的时候，工资上调50%,其它正常。
+		（注意：不修改数据库，只是将查询结果显示为工资上调）
+		select 
+			ename,
+			job, 
+			sal as oldsal,
+			(case job when 'MANAGER' then sal*1.1 when 'SALESMAN' then sal*1.5 else sal end) as newsal 
+		from 
+			emp;
+		
+		+--------+-----------+---------+---------+
+		| ename  | job       | oldsal  | newsal  |
+		+--------+-----------+---------+---------+
+		| SMITH  | CLERK     |  800.00 |  800.00 |
+		| ALLEN  | SALESMAN  | 1600.00 | 2400.00 |
+		| WARD   | SALESMAN  | 1250.00 | 1875.00 |
+		| JONES  | MANAGER   | 2975.00 | 3272.50 |
+		| MARTIN | SALESMAN  | 1250.00 | 1875.00 |
+		| BLAKE  | MANAGER   | 2850.00 | 3135.00 |
+		| CLARK  | MANAGER   | 2450.00 | 2695.00 |
+		| SCOTT  | ANALYST   | 3000.00 | 3000.00 |
+		| KING   | PRESIDENT | 5000.00 | 5000.00 |
+		| TURNER | SALESMAN  | 1500.00 | 2250.00 |
+		| ADAMS  | CLERK     | 1100.00 | 1100.00 |
+		| JAMES  | CLERK     |  950.00 |  950.00 |
+		| FORD   | ANALYST   | 3000.00 | 3000.00 |
+		| MILLER | CLERK     | 1300.00 | 1300.00 |
+		+--------+-----------+---------+---------+
+
+	round 四舍五入
+		select 字段 from 表名;
+		select ename from emp;
+		select 'abc' from emp; // select后面直接跟“字面量/字面值”
+
+		mysql> select 'abc' as bieming from emp;
+		+---------+
+		| bieming |
+		+---------+
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		| abc     |
+		+---------+
+
+		mysql> select abc from emp;
+		ERROR 1054 (42S22): Unknown column 'abc' in 'field list'
+		这样肯定报错，因为会把abc当做一个字段的名字，去emp表中找abc字段去了。
+
+		select 1000 as num from emp; // 1000 也是被当做一个字面量/字面值。
+		+------+
+		| num  |
+		+------+
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		| 1000 |
+		+------+
+
+		结论：select后面可以跟某个表的字段名（可以等同看做变量名），也可以跟字面量/字面值（数据）。
+		select 21000 as num from dept;
+		+-------+
+		| num   |
+		+-------+
+		| 21000 |
+		| 21000 |
+		| 21000 |
+		| 21000 |
+		+-------+
+
+		mysql> select round(1236.567, 0) as result from emp; //保留整数位。
+		+--------+
+		| result |
+		+--------+
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		|   1237 |
+		+--------+
+
+		select round(1236.567, 1) as result from emp; //保留1个小数
+		select round(1236.567, 2) as result from emp; //保留2个小数
+		select round(1236.567, -1) as result from emp; // 保留到十位。
+		+--------+
+		| result |
+		+--------+
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		|   1240 |
+		+--------+
+
+		select round(1236.567, -2) as result from emp;
+		+--------+
+		| result |
+		+--------+
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		|   1200 |
+		+--------+
+
+	rand() 生成随机数
+		mysql> select round(rand()*100,0) from emp; // 100以内的随机数
+		+---------------------+
+		| round(rand()*100,0) |
+		+---------------------+
+		|                  76 |
+		|                  29 |
+		|                  15 |
+		|                  88 |
+		|                  95 |
+		|                   9 |
+		|                  63 |
+		|                  89 |
+		|                  54 |
+		|                   3 |
+		|                  54 |
+		|                  61 |
+		|                  42 |
+		|                  28 |
+		+---------------------+
+		
+	ifnull 可以将 null 转换成一个具体值
+		ifnull是空处理函数。专门处理空的。
+		在所有数据库当中，只要有NULL参与的数学运算，最终结果就是NULL。
+		mysql> select ename, sal + comm as salcomm from emp;
+		+--------+---------+
+		| ename  | salcomm |
+		+--------+---------+
+		| SMITH  |    NULL |
+		| ALLEN  | 1900.00 |
+		| WARD   | 1750.00 |
+		| JONES  |    NULL |
+		| MARTIN | 2650.00 |
+		| BLAKE  |    NULL |
+		| CLARK  |    NULL |
+		| SCOTT  |    NULL |
+		| KING   |    NULL |
+		| TURNER | 1500.00 |
+		| ADAMS  |    NULL |
+		| JAMES  |    NULL |
+		| FORD   |    NULL |
+		| MILLER |    NULL |
+		+--------+---------+
+
+		计算每个员工的年薪？
+			年薪 = (月薪 + 月补助) * 12
+			
+			select ename, (sal + comm) * 12 as yearsal from emp;
+			+--------+----------+
+			| ename  | yearsal  |
+			+--------+----------+
+			| SMITH  |     NULL |
+			| ALLEN  | 22800.00 |
+			| WARD   | 21000.00 |
+			| JONES  |     NULL |
+			| MARTIN | 31800.00 |
+			| BLAKE  |     NULL |
+			| CLARK  |     NULL |
+			| SCOTT  |     NULL |
+			| KING   |     NULL |
+			| TURNER | 18000.00 |
+			| ADAMS  |     NULL |
+			| JAMES  |     NULL |
+			| FORD   |     NULL |
+			| MILLER |     NULL |
+			+--------+----------+
+
+			注意：NULL只要参与运算，最终结果一定是NULL。为了避免这个现象，需要使用ifnull函数。
+			ifnull函数用法：ifnull(数据, 被当做哪个值)
+				如果“数据”为NULL的时候，把这个数据结构当做哪个值。
+			
+			补助为NULL的时候，将补助当做0
+				select ename, (sal + ifnull(comm, 0)) * 12 as yearsal from emp;
+				+--------+----------+
+				| ename  | yearsal  |
+				+--------+----------+
+				| SMITH  |  9600.00 |
+				| ALLEN  | 22800.00 |
+				| WARD   | 21000.00 |
+				| JONES  | 35700.00 |
+				| MARTIN | 31800.00 |
+				| BLAKE  | 34200.00 |
+				| CLARK  | 29400.00 |
+				| SCOTT  | 36000.00 |
+				| KING   | 60000.00 |
+				| TURNER | 18000.00 |
+				| ADAMS  | 13200.00 |
+				| JAMES  | 11400.00 |
+				| FORD   | 36000.00 |
+				| MILLER | 15600.00 |
+				+--------+----------+
