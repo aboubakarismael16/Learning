@@ -348,4 +348,24 @@ Options:
   -p, --pause            Pause container during
                          commit (default true)
 
+
+aboubakar@ismael:~$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED          STATUS          PORTS      NAMES
+f014ba7839c9   tomcat    "catalina.sh run"   21 minutes ago   Up 21 minutes   8080/tcp   mystifying_hertz
+aboubakar@ismael:~$ sudo docker commit -m="add to webapp new app" -a="aboubakarismael" f014ba7839c9 tomcat02
+sha256:21d9eba0b36730fe76e911e3d03ae355df59da70b4f886ce55863eb0baf6dc54
+aboubakar@ismael:~$ sudo docker images
+REPOSITORY            TAG       IMAGE ID       CREATED          SIZE
+tomcat02              latest    21d9eba0b367   10 seconds ago   684MB
+nginx                 latest    04661cdce581   33 hours ago     141MB
+busybox               latest    cabb9f684f8b   2 weeks ago      1.24MB
+tomcat                9.0       43e421a14aec   2 weeks ago      680MB
+tomcat                latest    b0e0b0a92cf9   2 weeks ago      680MB
+mysql                 latest    ecac195d15af   3 weeks ago      516MB
+redis                 latest    7faaec683238   4 weeks ago      113MB
+centos                latest    5d0da3dc9764   8 weeks ago      231MB
+portainer/portainer   latest    580c0e4e98b0   7 months ago     79.1MB
+elasticsearch         7.6.2     f29a1ee41030   19 months ago    791MB
+
+
 ```
