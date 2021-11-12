@@ -109,7 +109,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 数据已同步到本地，将mysql删除、本地数据不会丢失，这就实现容器数据持久化
 
-具名卷挂载
+匿名卷挂载
 
 ```shell
 aboubakar@ismael:~$ sudo docker run -d -P --name nginx01 -v /ect/nginx nginx
