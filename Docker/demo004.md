@@ -1,0 +1,157 @@
+Make your own Dockerfile
+
+```shell
+aboubakar@ismael:~$ mkdir mydockerfile
+
+aboubakar@ismael:~/mydockerfile$ cat mydockerfile
+FROM ubuntu:18.04
+
+MAINTAINER ismael<ismael@gmail.com>
+
+ENV MYPATH /usr/local
+
+WORKDIR $MYPATH
+
+
+RUN apt-get update && apt-get -y install vim 
+RUN apt-get install net-tools 
+
+EXPOSE 80
+
+CMD echo $MYPATH 
+CMD echo "end...."
+CMD /bin/sh
+
+
+
+aboubakar@ismael:~/mydockerfile$ sudo docker build -f mydockerfile -t myubuntu:0.1 .
+...
+ ---> 56c54d402e79
+Successfully built 56c54d402e79
+Successfully tagged myubuntu:0.1
+
+REPOSITORY            TAG       IMAGE ID       CREATED              SIZE
+myubuntu              0.1       56c54d402e79   About a minute ago   163MB
+aboubakar@ismael:~/mydockerfile$ sudo docker run -it myubuntu:0.1
+root@56c54d402e79# vim
+root@56c54d402e79# pwd
+/usr/local
+root@56c54d402e79# cd /usr/local
+root@56c54d402e79# ls
+bin  etc  games  include  lib  man  sbin  share  src
+root@56c54d402e79# ifconfig
+
+
+aboubakar@ismael:~/mydockerfile$ sudo docker history 56c54d402e79
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+56c54d402e79   6 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "/bin…   0B        
+c7d7b8c83d4b   6 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "echo…   0B        
+6bb8cd3916a4   6 minutes ago   /bin/sh -c #(nop)  CMD ["/bin/sh" "-c" "echo…   0B        
+6f31c79a6af4   6 minutes ago   /bin/sh -c #(nop)  EXPOSE 80                    0B        
+e805f8366f9a   6 minutes ago   /bin/sh -c apt-get install net-tools            1.47MB    
+3df2ebaf31cd   6 minutes ago   /bin/sh -c apt-get update && apt-get -y inst…   98.3MB    
+4b54d8780fc3   7 minutes ago   /bin/sh -c #(nop) WORKDIR /usr/local            0B        
+35b5f18a965f   7 minutes ago   /bin/sh -c #(nop)  ENV MYPATH=/usr/local        0B        
+a1343e418fa4   7 minutes ago   /bin/sh -c #(nop)  MAINTAINER ismael<ismael@…   0B        
+5a214d77f5d7   6 weeks ago     /bin/sh -c #(nop)  CMD ["bash"]                 0B        
+<missing>      6 weeks ago     /bin/sh -c #(nop) ADD file:0d82cd095966e8ee7…   63.1MB 
+```
+
+```shell
+aboubakar@ismael:~/mydockerfile$ vim docker-cmd
+aboubakar@ismael:~/mydockerfile$ cat docker-cmd
+FROM ubuntu:18.04
+
+CMD ["ls", "-s"]
+
+
+aboubakar@ismael:~/mydockerfile$ sudo docker build -f docker-cmd -t cmd .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM ubuntu:18.04
+ ---> 5a214d77f5d7
+Step 2/2 : CMD ["ls", "-s"]
+ ---> Running in 08753a22f377
+Removing intermediate container 08753a22f377
+ ---> b8418fd1f086
+Successfully built b8418fd1f086
+Successfully tagged cmd:latest
+
+aboubakar@ismael:~/mydockerfile$ sudo docker run b8418fd1f086
+.
+..
+total 64
+4 bin
+4 boot
+0 dev
+4 etc
+4 home
+4 lib
+4 lib64
+4 media
+4 mnt
+4 opt
+0 proc
+4 root
+4 run
+4 sbin
+4 srv
+0 sys
+4 tmp
+4 usr
+4 var
+
+
+# 不能追加，必须全部替换
+
+aboubakar@ismael:~/mydockerfile$ sudo docker run b8418fd1f086 -1
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: "-1": executable file not found in $PATH: unknown.
+
+
+# 可以追加命令
+
+aboubakar@ismael:~/mydockerfile$ vim docker-entrypoint
+aboubakar@ismael:~/mydockerfile$ cat docker-entrypoint
+FROM ubuntu:18.04
+
+CMD ["ls","-a"]
+
+
+aboubakar@ismael:~/mydockerfile$ sudo docker build -f docker-entrypoint -t entrypoint .
+Sending build context to Docker daemon  4.096kB
+Step 1/2 : FROM ubuntu:18.04
+ ---> 5a214d77f5d7
+Step 2/2 : CMD ["ls","-a"]
+ ---> Running in c80702a69937
+Removing intermediate container c80702a69937
+ ---> 49d9121165b9
+Successfully built 49d9121165b9
+Successfully tagged entrypoint:latest
+
+
+aboubakar@ismael:~/mydockerfile$ sudo docker run 49d9121165b9
+.
+..
+.dockerenv
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
+
+
+```

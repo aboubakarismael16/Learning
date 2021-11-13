@@ -1,4 +1,4 @@
-Dockerfile base 
+Base of the Dockerfile 
 
 
 ```shell
@@ -109,9 +109,87 @@ aboubakar@ismael:~/docker-volumes$ sudo docker inspect e894f1865326
  ....
 
 ```
-
-查看数据同步成功
+容器间数据共享卷：数据双向拷贝
 
 ```shell
+aboubakar@ismael:~/docker-volumes$ sudo docker run -it --name docker02 ismael/centos
+```
+
+```shell
+aboubakar@ismael:~/docker-volumes$ sudo docker images
+REPOSITORY            TAG       IMAGE ID       CREATED         SIZE
+isamel/centos         latest    e894f1865326   24 hours ago    231MB
+ismael/centos         1.0       e894f1865326   24 hours ago    231MB
+
+
+aboubakar@ismael:~/docker-volumes$ sudo docker run -it --name docker02 ismael/centos
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  volume01	volume02
+sh-4.4# cd volume02
+sh-4.4# touch docker001
+sh-4.4# ls
+docker001
+
+
+aboubakar@ismael:~$ sudo docker ps 
+CONTAINER ID   IMAGE               COMMAND                CREATED         STATUS         PORTS     NAMES
+4d1b036c5650   ismael/centos:1.0   "/bin/sh -c /bin/sh"   5 minutes ago   Up 5 minutes             docker02
+aboubakar@ismael:~$ sudo docker run -it --name docker03 --volumes-from docker02 ismael/centos
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  volume01	volume02
+sh-4.4# cd volume02
+sh-4.4# ls
+docker001
+sh-4.4# touch docker002
+sh-4.4# ls
+docker001  docker002
+
+
+aboubakar@ismael:~/docker-volumes$ sudo docker run -it --name docker02 ismael/centos
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  volume01	volume02
+sh-4.4# cd volume02
+sh-4.4# touch docker001
+sh-4.4# ls
+docker001
+sh-4.4# ls
+docker001  docker002
+
+
+删除 docker02
+
+aboubakar@ismael:~/docker-volumes$ sudo docker rm -f 4d1b036c5650
+4d1b036c5650
+
+
+# docker04容器同步文件依然在
+aboubakar@ismael:~/docker-volumes$ sudo docker run -it --name docker04 --volumes-from docker02 isamel/centos
+sh-4.4# ls
+bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var  volume01	volume02
+sh-4.4# cd volume02
+sh-4.4# ls
+docker001  docker002
+sh-4.4# ls
+docker001  docker002
+```
+
+数据卷容器的生命周期一直持续到没有容器使用为止
+
+```shell
+ubuntu@x:~$ docker run -d -p 3306:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql mysql:latest
+c9cbb8634a619d014ccbcde50c79fb899b7d0404bece3b644de2ebf03aa2a377
+
+ubuntu@x:~$ docker run -d -p 3307:3306 -v /etc/mysql/conf.d -v /var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql02 --volumes-from mysql mysql:latest
+a8f5e85ae1d71397881b4494599aaf91ac08dce9b8d5fd4ca096e5805686ca8c
+
+ubuntu@x:~$ docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                                  NAMES
+a8f5e85ae1d7   mysql:latest   "docker-entrypoint.s…"   58 seconds ago   Up 56 seconds   33060/tcp, 0.0.0.0:3307->3306/tcp, :::3307->3306/tcp   mysql02
+c9cbb8634a61   mysql:latest   "docker-entrypoint.s…"   9 minutes ago    Up 9 minutes    0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   mysql
+
+
+ubuntu@x:~$ docker exec -it mysql /bin/bash
+root@c9cbb8634a61:/# mysql -uroot -p123456
+mysql>
 
 ```
