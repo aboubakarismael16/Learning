@@ -113,14 +113,14 @@ aboubakar@ismael:~/mydockerfile$ vim docker-entrypoint
 aboubakar@ismael:~/mydockerfile$ cat docker-entrypoint
 FROM ubuntu:18.04
 
-CMD ["ls","-a"]
+ENTRYPOINT ["ls","-a"]
 
 
 aboubakar@ismael:~/mydockerfile$ sudo docker build -f docker-entrypoint -t entrypoint .
 Sending build context to Docker daemon  4.096kB
 Step 1/2 : FROM ubuntu:18.04
  ---> 5a214d77f5d7
-Step 2/2 : CMD ["ls","-a"]
+Step 2/2 : ENTRYPOINT ["ls","-s"]
  ---> Running in c80702a69937
 Removing intermediate container c80702a69937
  ---> 49d9121165b9
@@ -129,29 +129,51 @@ Successfully tagged entrypoint:latest
 
 
 aboubakar@ismael:~/mydockerfile$ sudo docker run 49d9121165b9
-.
-..
-.dockerenv
-bin
-boot
-dev
-etc
-home
-lib
-lib64
-media
-mnt
-opt
-proc
-root
-run
-sbin
-srv
-sys
-tmp
-usr
-var
+ltotal 64
+4 bin
+4 boot
+0 dev
+4 etc
+4 home
+4 lib
+4 lib64
+4 media
+4 mnt
+4 opt
+0 proc
+4 root
+4 run
+4 sbin
+4 srv
+0 sys
+4 tmp
+4 usr
+4 var
 
+
+# 可以追加命令
+
+aboubakar@ismael:~/mydockerfile$ sudo docker run 22a3899f045d -l
+total 64
+4 drwxr-xr-x   2 root root 4096 Dec 17  2019 bin
+4 drwxr-xr-x   2 root root 4096 Apr 10  2014 boot
+0 drwxr-xr-x   5 root root  340 Nov 15 04:18 dev
+4 drwxr-xr-x   1 root root 4096 Nov 15 04:18 etc
+4 drwxr-xr-x   2 root root 4096 Apr 10  2014 home
+4 drwxr-xr-x  12 root root 4096 Dec 17  2019 lib
+4 drwxr-xr-x   2 root root 4096 Dec 17  2019 lib64
+4 drwxr-xr-x   2 root root 4096 Dec 17  2019 media
+4 drwxr-xr-x   2 root root 4096 Apr 10  2014 mnt
+4 drwxr-xr-x   2 root root 4096 Dec 17  2019 opt
+0 dr-xr-xr-x 444 root root    0 Nov 15 04:18 proc
+4 drwx------   2 root root 4096 Dec 17  2019 root
+4 drwxr-xr-x   1 root root 4096 Mar 25  2021 run
+4 drwxr-xr-x   1 root root 4096 Mar 25  2021 sbin
+4 drwxr-xr-x   2 root root 4096 Dec 17  2019 srv
+0 dr-xr-xr-x  13 root root    0 Nov 15 04:18 sys
+4 drwxrwxrwt   2 root root 4096 Dec 17  2019 tmp
+4 drwxr-xr-x   1 root root 4096 Dec 17  2019 usr
+4 drwxr-xr-x   1 root root 4096 Dec 17  2019 var
 
 
 ```
