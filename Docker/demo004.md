@@ -89,22 +89,27 @@ total 64
 4 lib64
 4 media
 4 mnt
-4 opt
-0 proc
-4 root
-4 run
-4 sbin
-4 srv
-0 sys
-4 tmp
-4 usr
-4 var
+...
 
 
 # 不能追加，必须全部替换
 
 aboubakar@ismael:~/mydockerfile$ sudo docker run b8418fd1f086 -1
 docker: Error response from daemon: OCI runtime create failed: container_linux.go:380: starting container process caused: exec: "-1": executable file not found in $PATH: unknown.
+
+aboubakar@ismael:~/mydockerfile$ sudo docker run b8418fd1f086 ls -al
+total 72
+drwxr-xr-x   1 root root 4096 Nov 15 04:23 .
+drwxr-xr-x   1 root root 4096 Nov 15 04:23 ..
+-rwxr-xr-x   1 root root    0 Nov 15 04:23 .dockerenv
+drwxr-xr-x   2 root root 4096 Sep 30 12:34 bin
+drwxr-xr-x   2 root root 4096 Apr 24  2018 boot
+drwxr-xr-x   5 root root  340 Nov 15 04:23 dev
+drwxr-xr-x   1 root root 4096 Nov 15 04:23 etc
+drwxr-xr-x   2 root root 4096 Apr 24  2018 home
+drwxr-xr-x   8 root root 4096 May 23  2017 lib
+...
+
 
 
 # 可以追加命令
@@ -139,16 +144,7 @@ ltotal 64
 4 lib64
 4 media
 4 mnt
-4 opt
-0 proc
-4 root
-4 run
-4 sbin
-4 srv
-0 sys
-4 tmp
-4 usr
-4 var
+...
 
 
 # 可以追加命令
@@ -162,18 +158,58 @@ total 64
 4 drwxr-xr-x   2 root root 4096 Apr 10  2014 home
 4 drwxr-xr-x  12 root root 4096 Dec 17  2019 lib
 4 drwxr-xr-x   2 root root 4096 Dec 17  2019 lib64
-4 drwxr-xr-x   2 root root 4096 Dec 17  2019 media
-4 drwxr-xr-x   2 root root 4096 Apr 10  2014 mnt
-4 drwxr-xr-x   2 root root 4096 Dec 17  2019 opt
-0 dr-xr-xr-x 444 root root    0 Nov 15 04:18 proc
-4 drwx------   2 root root 4096 Dec 17  2019 root
-4 drwxr-xr-x   1 root root 4096 Mar 25  2021 run
-4 drwxr-xr-x   1 root root 4096 Mar 25  2021 sbin
-4 drwxr-xr-x   2 root root 4096 Dec 17  2019 srv
-0 dr-xr-xr-x  13 root root    0 Nov 15 04:18 sys
-4 drwxrwxrwt   2 root root 4096 Dec 17  2019 tmp
-4 drwxr-xr-x   1 root root 4096 Dec 17  2019 usr
-4 drwxr-xr-x   1 root root 4096 Dec 17  2019 var
+...
+
+```
+
+镜像发布
+
+````shell
+aboubakar@ismael:~$ sudo docker login
+Authenticating with existing credentials...
+WARNING! Your password will be stored unencrypted in /root/snap/docker/1125/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+
+aboubakar@ismael:~/MyDockerfile$ cat Dockerfile
+FROM ubuntu:18.04
+
+MAINTAINER ismael<aboubakarismael16@gmail.com>
+
+ENV MYPATH /usr/local
+
+WORKDIR $MYPATH
+
+RUN apt-get update && apt-get -y install vim
+
+RUN apt-get install net-tools
+
+
+EXPOSE 80
+
+CMD echo MYPATH
+CMD echo "end ..."
+CMD /bin/sh
+
+
+aboubakar@ismael:~/MyDockerfile$ sudo docker build -f Dockerfile -t ismael/ubuntu .
+Successfully built bfd63f524382
+Successfully tagged ismael/ubuntu:latest
+
+aboubakar@ismael:~/MyDockerfile$ sudo docker images
+REPOSITORY            TAG       IMAGE ID       CREATED              SIZE
+ismael/ubuntu         latest    bfd63f524382   About a minute ago   163MB
+
+aboubakar@ismael:~/MyDockerfile$ sudo docker push ismael/ubuntu
+Using default tag: latest
+The push refers to repository [docker.io/ismael/ubuntu]
+82e18c734c40: Pushed
+b68cb5c1d13d: Pushed
+9f54eef41275: Mounted from library/ubuntu
+latest: digest: sha256:dc71bd31b77150560a90d0b7faaaecc9b37977df22f9c90ecbfe838e4452e977 size: 951
 
 
 ```
