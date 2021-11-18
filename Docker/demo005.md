@@ -140,3 +140,162 @@ PING myubuntu02 (196.198.0.3) 56(84) bytes of data.
 
 
 ```
+
+网络连通
+
+```shell
+aboubakar@ismael:~$ sudo docker network --help
+
+Usage:  docker network COMMAND  [OPTIONS] NETWORK CONTAINER
+
+Manage networks
+
+Commands:
+  connect     Connect a container to a network
+  create      Create a network
+  disconnect  Disconnect a container from a network
+  inspect     Display detailed information on one or more networks
+  ls          List networks
+  prune       Remove all unused networks
+  rm          Remove one or more networks
+
+aboubakar@ismael:~$ sudo docker network inspect mynet
+"Containers": {
+            "5c100e6f67ef9330453c1bf25128b846197b3d02f2aa80d6c54a07927cd34aa8": {
+                "Name": "myubuntu01",
+                "EndpointID": "65865842d40d3c67983adf64eb4c2407b7ff5a0f807ba31412b3a1799fe63fe1",
+                "MacAddress": "02:42:c4:c6:00:02",
+                "IPv4Address": "196.198.0.2/16",
+                "IPv6Address": ""
+            },
+            "c1b397d3feca48cb5ea0406d5c72c78cef19e825325379f8bfbdd1896aefedd0": {
+                "Name": "myubuntu02",
+                "EndpointID": "2bd6b8ff2c9ebf163d71101506a27c92de2996a0ae59760e43ee8af9efe4826c",
+                "MacAddress": "02:42:c4:c6:00:03",
+                "IPv4Address": "196.198.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+
+```
+
+redis 集群
+
+```shell
+aboubakar@ismael:~$ sudo docker network create redis-net --subnet 172.38.0.0/16
+3ade65949b3e41d4291198109f1b7d41ebf26e00ed920d89ab8174be81b6af67
+aboubakar@ismael:~$ sudo docker network ls
+NETWORK ID     NAME                                          DRIVER    SCOPE
+9c58db000380   bridge                                        bridge    local
+f180033fac2f   docker_gwbridge                               bridge    local
+f03013318046   flask-app                                     bridge    local
+efb50ee870e6   host                                          host      local
+801625b712bd   mongo-net                                     bridge    local
+b02cb5e6f62e   mongo-network                                 bridge    local
+0824ebb88b73   mynet                                         bridge    local
+d007db4b0977   none                                          null      local
+2d51b88ea376   rabbitmq_default                              bridge    local
+3ade65949b3e   redis-net                                     bridge    local
+aboubakar@ismael:~$ sudo docker network inspect redis-net
+[
+    {
+        "Name": "redis-net",
+        "Id": "3ade65949b3e41d4291198109f1b7d41ebf26e00ed920d89ab8174be81b6af67",
+        "Created": "2021-11-18T21:28:08.188864747+08:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.38.0.0/16"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+```
+
+```shell
+for port in $(seq 1 6); \
+do \
+mkdir -p /mydata/redis-net/node-${port}/conf
+touch /mydata/redis-net/node-${port}/conf/redis-net.conf
+cat << EOF >/mydata/redis-net/node-${port}/conf/redis-net.conf
+port 6379
+bind 0.0.0.0
+cluster-enabled yes 
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+cluster-announce-ip 172.38.0.1${port}
+cluster-announce-port 6379
+cluster-announce-bus-port 16379
+appendonly yes
+EOF
+done
+
+root@ismael:/mydata/redis-net# ls
+node-1  node-2  node-3  node-4  node-5  node-6
+root@ismael:/mydata/redis-net# cd node-1
+root@ismael:/mydata/redis-net/node-1# ls
+conf
+root@ismael:/mydata/redis-net/node-1# cd conf/
+root@ismael:/mydata/redis-net/node-1/conf# ls
+redis-net.conf
+root@ismael:/mydata/redis-net/node-1/conf# cat redis-net.conf
+port 6379
+bind 0.0.0.0
+cluster-enabled yes 
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+cluster-announce-ip 172.38.0.11
+cluster-announce-port 6379
+cluster-announce-bus-port 16379
+appendonly yes
+
+
+
+docker run -p 6371:6379 -p 16371:16379 --name redis-1 \
+-v /mydata/redis-net/node-1/data:/data \
+-v /mydata/redis-net/node-1/conf/redis-net.conf:/etc/redis-net/redis.conf \
+-d --net redis-net --ip 172.38.0.11 redis:latest redis-server /etc/redis-net/redis-net.conf
+
+docker run -p 6372:6379 -p 16372:16379 --name redis-2 \
+-v /mydata/redis-net/node-1/data:/data \
+-v /mydata/redis-net/node-1/conf/redis-net.conf:/etc/redis-net/redis.conf \
+-d --net redis-net --ip 172.38.0.12 redis:latest redis-server /etc/redis-net/redis-net.conf
+
+docker run -p 6373:6379 -p 16373:16379 --name redis-3 \
+-v /mydata/redis-net/node-1/data:/data \
+-v /mydata/redis-net/node-1/conf/redis-net.conf:/etc/redis-net/redis.conf \
+-d --net redis-net --ip 172.38.0.13 redis:latest redis-server /etc/redis-net/redis-net.conf
+
+docker run -p 6374:6379 -p 16374:16379 --name redis-4 \
+-v /mydata/redis-net/node-1/data:/data \
+-v /mydata/redis-net/node-1/conf/redis-net.conf:/etc/redis-net/redis.conf \
+-d --net redis-net --ip 172.38.0.14 redis:latest redis-server /etc/redis-net/redis-net.conf
+
+docker run -p 6375:6379 -p 16375:16379 --name redis-5 \
+-v /mydata/redis-net/node-1/data:/data \
+-v /mydata/redis-net/node-1/conf/redis-net.conf:/etc/redis-net/redis.conf \
+-d --net redis-net --ip 172.38.0.15 redis:latest redis-server /etc/redis-net/redis-net.conf
+
+docker run -p 6376:6379 -p 16376:16379 --name redis-6 \
+-v /mydata/redis-net/node-1/data:/data \
+-v /mydata/redis-net/node-1/conf/redis-net.conf:/etc/redis-net/redis.conf \
+-d --net redis-net --ip 172.38.0.16 redis:latest redis-server /etc/redis-net/redis-net.conf
+
+```
