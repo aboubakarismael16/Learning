@@ -22,7 +22,7 @@ metadata:
 
 运行中的一组容器，Pod是kubernetes中应用的最小单位.
 
-![pod-working](/img/pod-working.png)
+![pod-working](/K8s/img/pod-working.png)
 
 ```bash
 kubectl run mynginx --image=nginx
@@ -69,7 +69,7 @@ spec:
 
 
 
-![multi-pod](/img/multi-pod.png)
+![multi-pod](/K8s/img/multi-pod.png)
 
 # 4、Deployment
 
