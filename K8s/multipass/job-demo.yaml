@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-demo
+spec:
+  completions: 5 
+  parallelism: 2
+  template:
+    metadata:
+      name: job-demo
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: counter
+        image: busybox
+        command:
+        - "bin/sh"
+        - "-c"
+        - "for i in 9 8 7 6 5 4 3 2 1; do echo $i; done"

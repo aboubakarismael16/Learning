@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    volumeMounts:
+    - name: volume-config
+      mountPath: /share-config 
+  - name: busybox2
+    image: busybox 
+    volumeMounts: 
+    - name: volume-config 
+      mountPath: /myconfig
+  volumes:
+  - name: volume-config 
+    emptyDir: {}

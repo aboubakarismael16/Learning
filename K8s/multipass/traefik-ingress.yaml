@@ -1,0 +1,42 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: traefik
+    creationTimestamp: "2022-02-04T07:07:44Z"
+    generation: 1
+    managedFields:
+    - apiVersion: extensions/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubernetes.io/ingress.class: {}
+        f:spec:
+          f:rules: {}
+      manager: kubectl
+      operation: Update
+      time: "2022-02-04T07:07:44Z"
+    name: traefik-web-ui
+    namespace: kube-system
+    resourceVersion: "30985"
+    selfLink: /apis/extensions/v1beta1/namespaces/kube-system/ingresses/traefik-web-ui
+    uid: 236d3c22-a3b5-4ccb-8177-67cdf703fadc
+  spec:
+    rules:
+    - host: ismael16.com
+      http:
+        paths:
+        - backend:
+            serviceName: traefik-ingress-service
+            servicePort: 8080
+          pathType: ImplementationSpecific
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

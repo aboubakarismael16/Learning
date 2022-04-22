@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress  
+metadata:
+  name: ingress-host-bar
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "hello.ismael16.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: hello-server
+            port:
+              number: 8000
+  - host: "demo.ismael16.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/nginx"  
+        backend:
+          service:
+            name: nginx-demo  
+            port:
+              number: 8000

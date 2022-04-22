@@ -1,0 +1,36 @@
+apiVersion: apps.kruise.io/v1alpha1
+kind: StatefulSet
+metadata:
+  name: demo-asts
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: guestbook-sts
+  podManagementPolicy: Parallel
+  template: #Pod template和官方StatefulSet的结构完全一致。
+    metadata:
+      labels:
+        app: guestbook-sts
+    spec:
+      containers:
+      - name: guestbook
+        image: registry.cn-hangzhou.aliyuncs.com/kruise-test/guestbook:v1
+        env:
+        - name: test
+          value: foo
+        volumeMounts:
+        - name: log-volume
+          mountPath: /var/log
+      readinessGates:
+      - conditionType: InPlaceUpdateReady
+      volumes:
+      - name: log-volume
+        emptyDir: {}
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      podUpdatePolicy: InPlaceIfPossible #尽量使用原地升级，否则重建升级。
+      maxUnavailable: 20% #发布过程最多20%不可用。
+      inPlaceUpdateStrategy:
+        gracePeriodSeconds: 3 #每个Pod原地升级前Not ready优雅等待时间。
