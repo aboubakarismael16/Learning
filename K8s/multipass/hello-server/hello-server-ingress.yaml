@@ -5,23 +5,19 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "hello.ismael16.com"
+  - host: hello.ismael16.com
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
-          service:
-            name: hello-server
-            port:
-              number: 8000
-  - host: "demo.ismael16.com"
+          serviceName: hello-server
+          servicePort: 8000
+  - host: demo.ismael16.com
     http:
       paths:
       - pathType: Prefix
         path: "/nginx"  
         backend:
-          service:
-            name: nginx-demo  
-            port:
-              number: 8000
+          serviceName: nginx-demo
+          servicePort: 8000
