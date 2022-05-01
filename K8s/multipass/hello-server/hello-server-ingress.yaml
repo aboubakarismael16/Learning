@@ -17,7 +17,7 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/nginx"  
+        path: "/"
         backend:
           serviceName: nginx-demo
           servicePort: 8000
