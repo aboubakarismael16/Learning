@@ -51,13 +51,13 @@ type slice struct {
 }
 ```
 
-![slice01](/home/aboubakar/Pictures/slice01.jpg)
+![slice01](/img/slice01.jpg)
 
 
 
 The slice structure consists of three parts, `pointer` is a pointer to an array, `len` represents the length of the current slice, and `cap` is the capacity of the current slice.`cap` is almost bigger than `len`.
 
-![slice02](/home/aboubakar/Pictures/slice02.jpg)
+![slice02](/img/slice02.jpg)
 
 ## How to make slice
 
@@ -165,7 +165,7 @@ func makeslice64(et *_type, len64, cap64 int64) slice {
 
 The implementation principle is the same as the above, except that there is an extra step of converting `int64` to `int`.
 
-![slice03](/home/aboubakar/Pictures/slice03.jpg)
+![slice03](/img/slice03.jpg)
 
 
 
@@ -175,7 +175,7 @@ In addition to the make function that can create slices, literals can also creat
 
 
 
-![slice04](/home/aboubakar/Pictures/slice04.jpg)
+![slice04](/img/slice04.jpg)
 
 Here is a slice with `len = 5 ` and `cap = 5 ` created with literals. At this time, the value of each element in the array is initialized. **It should be noted that the capacity of the array should not be written in []**, because if the number is written, it will be an **array** instead of a **slice**.
 
@@ -193,7 +193,7 @@ empty_slice = []int{}
 
 
 
-![slice05](/home/aboubakar/Pictures/slice05.jpg)
+![slice05](/img/slice05.jpg)
 
 The last point that needs to be explained is  whether you use nil slices or empty slices, call the built-in function append to it, and the effects of len and cap are the same.
 
@@ -327,9 +327,9 @@ After newSlice = [10 30 30 40 50], Pointer = 0xc4200b0180, len = 5, cap = 8
 
 
 
-![slice06](/home/aboubakar/Pictures/slice06.jpg)
+![slice06](/img/slice06.jpg)
 
-![slice07](/home/aboubakar/Pictures/slice07.jpg)
+![slice07](/img/slice07.jpg)
 
 
 
@@ -376,7 +376,7 @@ After array = [10 30 50 40]
 
 
 
-![slice08](/home/aboubakar/Pictures/slice08.jpg)
+![slice08](/img/slice08.jpg)
 
 
 
@@ -535,7 +535,7 @@ value = 40 , value-addr = c000126010 , slice-addr = c000132018
 
 From the above results, we can see that if you use range to traverse a slice, the Value you get is actually a copy of the value in the slice. In fact, the address of Value will not change every time you print.
 
-![slice10](/home/aboubakar/Pictures/slice10.jpg)
+![slice10](/img/slice10.jpg)
 
 Since Value is copied by value, not passed by reference, directly changing Value will not achieve the purpose of changing the original slice value. You need to get the real address through `&slice[index]`.
 

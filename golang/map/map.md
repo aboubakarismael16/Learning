@@ -15,7 +15,7 @@ type hmap struct{
 }
 ```
 
-![map01](/home/aboubakar/Pictures/map01.jpg)
+![map01](/img/map01.jpg)
 
 In this example , `hmap.B = 2`, while the length of hmap.buckets is 2^B egal to 4 . After th hash operation , the element will fall into a bucket for storage .The search process is similar. 
 
