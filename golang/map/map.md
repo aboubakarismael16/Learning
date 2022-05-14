@@ -15,7 +15,7 @@ type hmap struct{
 }
 ```
 
-![map01](/home/aboubakar/go/src/Learning/golang/img/map01.jpg)
+![map01](../img/map01.jpg)
 
 In this example , `hmap.B = 2`, while the length of hmap.buckets is 2^B egal to 4 . After th hash operation , the element will fall into a bucket for storage .The search process is similar. 
 
@@ -43,13 +43,13 @@ Each bucket can store 8 key-value pairs.
 
 **Note : `data` and `overflow` in the above are not defined in the structure but accessed directly through pointer operations.**
 
-![map02](/home/aboubakar/go/src/Learning/golang/img/map02.jpg)
+![map02](../img/map02.jpg)
 
 ## 3. Hash conflict
 
 When two or more keys are hashed to the same bucket, we say that these keys conflict. Go uses the chain address method to resolve key conflicts. Since each bucket can store 8 key-value pairs, when the same bucket stores more than 8 key-value pairs, another key-value pair will be created and the buckets will be connected in a similar way to a linked list.
 
-![map03](/home/aboubakar/go/src/Learning/golang/img/map03.jpg)
+![map03](../img/map03.jpg)
 
 
 
@@ -91,7 +91,7 @@ The following figure shows a map that contains a bucket full of loads (for the c
 
 
 
-![map04](/home/aboubakar/go/src/Learning/golang/img/map04.jpg)
+![map04](../img/map04.jpg)
 
 The current map stores 7 key-value pairs and only 1 bucket. The load factor here is 7. When data is inserted again, an expansion operation will be stimulated. After the expansion, the newly inserted key will be written into the new bucket.
 
@@ -99,13 +99,13 @@ When the 8 key-value pair is inserted, expansion will be stimulate. The diagram 
 
 
 
-![map05](/home/aboubakar/go/src/Learning/golang/img/map05.jpg)
+![map05](../img/map05.jpg)
 
 The oldbuckets member in the hmap data structure refers to the original bucket, and the buckets point to the newly applied bucket. The new key-value pair is inserted into the new bucket. Subsequent access operations to the map will stimulate the migration, and the key-value pairs in the oldbuckets will be gradually migrated. When all the key-value pairs in oldbuckets are relocated, delete oldbuckets.
 
 The figure after the relocation is as follows :
 
-![map06](/home/aboubakar/go/src/Learning/golang/img/map06.jpg)
+![map06](../img/map06.jpg)
 
 During the data relocation process, the key-value pairs in the original bucket will exist in front of the new bucket, and the newly inserted key-value pairs will exist behind the new bucket. The actual relocation process is more complicated and will be introduced in detail in the subsequent source code analysis.
 
