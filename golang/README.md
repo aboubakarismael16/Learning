@@ -22,7 +22,7 @@
 |  :---------------                | :------------: |
 | 👀 [ASM](asm.md)                  |    ❌       |
 | 🌃 [Build and Link](build.md)     |    ❌       |
-| ✅ [Array Vs Slice](slice.md)     |    ✅ 完成      |
+| ✅ [Array Vs Slice](slice.md) ⭐⭐    |    ✅ 完成      |
 | ✅ [Map](Map.md)                  |    ✅ 完成      |
 | ✅ [String](String.md)            |    ✅ 完成      |
 | 🖌 [Interface](Interface.md)      |    ❌       |
