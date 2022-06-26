@@ -35,3 +35,7 @@ There are two major phases of garbage collection:
 原文作者：duck9527
 转自链接：https://learnku.com/go/t/65468
 版权声明：著作权归作者所有。商业转载请联系作者获得授权，非商业转载请保留以上作者信息和原文链接。
+
+##More reference:
+
+[Golang三色标记混合写屏障GC模式全分析 ](https://learnku.com/articles/68141)
