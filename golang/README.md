@@ -29,7 +29,7 @@
 | 🖌 [Reflection](reflection.md)    |    ❌       |
 | ✅ [for and range]()              |    ✅ 完成      |
 | ✅ [select]()                     |    ❌       |
-| ✅ [defer]()                      |    ❌       |
+| ✅ [defer]()                      |    ✅ 完成       |
 | ✅ [panic and recover ]()         |    ❌       | 
 | ✅ [make and new]()               |   ✅ 完成       |
 | 📝 [Goroutine](Goroutine.md)      |    ✅ 完成       |
