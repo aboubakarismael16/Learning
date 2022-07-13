@@ -25,12 +25,12 @@
 | ✅ [Array Vs Slice](slice.md) ⭐⭐    |    ✅ 完成      |
 | ✅ [Map](Map.md)                  |    ✅ 完成      |
 | ✅ [String](String.md)            |    ✅ 完成      |
-| 🖌 [Interface](Interface.md)      |    ❌       |
-| 🖌 [Reflection](reflection.md)    |    ❌       |
+| 🖌 [Interface](Interface.md)      |    ✅ 完成      |
+| 🖌 [Reflection](reflection.md)    |    ✅ 完成      |
 | ✅ [for and range]()              |    ✅ 完成      |
-| ✅ [select]()                     |    ❌       |
+| ✅ [select]()                     |    ✅ 完成      |
 | ✅ [defer]()                      |    ✅ 完成       |
-| ✅ [panic and recover ]()         |    ❌       | 
+| ✅ [panic and recover ]()         |    ✅ 完成     | 
 | ✅ [make and new]()               |   ✅ 完成       |
 | 📝 [Goroutine](Goroutine.md)      |    ✅ 完成       |
 | 📝 [Channel](channel.md)          |    ✅ 完成       |
