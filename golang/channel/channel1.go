@@ -14,13 +14,9 @@ func main() {
 	go func() {
 		<-syncChan1
 		fmt.Println("Received a sync signal and wait a second ... [receiver]")
-		time.Sleep(time.Second)
-		for {
-			if elm, ok := <- strChan; ok {
-				fmt.Println("Received", elm, "[receiver]")
-			} else {
-				break
-			}
+		time.Sleep(1 * time.Second)
+		for elm := range strChan {
+			fmt.Println("Received", elm, "[receiver]")
 		}
 		fmt.Println("Stopped. [receiver]")
 		syncChan2 <- struct{}{}
@@ -29,18 +25,17 @@ func main() {
 	go func() {
 		for _, elm := range []string{"a", "b", "c", "d"} {
 			strChan <- elm
-			fmt.Println("Sent: ",elm,"[sender]")
+			fmt.Println("Sent: ", elm, "[sender]")
 			if elm == "c" {
 				syncChan1 <- struct{}{}
 				fmt.Println("Sent a sync signal. [sender]")
 			}
 		}
 		fmt.Println("Wait 2 second... [sender]")
-		time.Sleep(2*time.Second)
+		time.Sleep(2 * time.Second)
 		close(strChan)
 		syncChan2 <- struct{}{}
 	}()
-	<- syncChan1
-	<- syncChan2
-
+	<-syncChan2
+	<-syncChan2
 }
