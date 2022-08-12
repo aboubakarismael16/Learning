@@ -33,3 +33,4 @@ spec:
           nfs:
             server: 10.218.50.207
             path: /data/k8s
+
