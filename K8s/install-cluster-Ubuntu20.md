@@ -1,4 +1,8 @@
 # Install Kubernetes Cluster using kubeadm
+
+[The Easy Way to Install Kubernetes 1.22 and containerd](https://medium.com/itnext/the-easy-way-to-install-kubernetes-1-22-and-containerd-fec2d07912bd)
+
+
 Follow this documentation to set up a Kubernetes cluster on __Ubuntu 20.04 LTS__.
 
 This documentation guides you in setting up a cluster with one master node and one worker node.
