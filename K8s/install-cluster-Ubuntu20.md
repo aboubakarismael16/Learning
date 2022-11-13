@@ -1,6 +1,10 @@
 # Install Kubernetes Cluster using kubeadm
 
 [The Easy Way to Install Kubernetes 1.22 and containerd](https://medium.com/itnext/the-easy-way-to-install-kubernetes-1-22-and-containerd-fec2d07912bd)
+apt install conntrack
+apt install socat
+```./kk create cluster --with-kubernetes v1.22.1 --yes --skip-pull-images
+```
 
 
 Follow this documentation to set up a Kubernetes cluster on __Ubuntu 20.04 LTS__.

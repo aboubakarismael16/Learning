@@ -24,6 +24,11 @@ spec:
                 operator: In
                 values:
                 - ssd
+      tolerations:
+      - key: "disktype"
+        operator: "Equal"
+        value: "ssd"
+        effect: "NoSchedule"
       containers:
         - name: nfs-client-provisioner
           image: quay.io/external_storage/nfs-client-provisioner:latest
