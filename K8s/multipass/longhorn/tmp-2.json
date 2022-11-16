@@ -1,0 +1,59 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"annotations\":{},\"name\":\"longhorn-system\"}}\n"
+        },
+        "creationTimestamp": "2022-11-16T08:13:17Z",
+        "deletionTimestamp": "2022-11-16T08:31:12Z",
+        "labels": {
+            "kubernetes.io/metadata.name": "longhorn-system"
+        },
+        "name": "longhorn-system",
+        "resourceVersion": "51191",
+        "uid": "f59842b6-aa84-493b-9be4-66d99910e3e2"
+    },
+    "spec": {
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2022-11-16T08:31:25Z",
+                "message": "All resources successfully discovered",
+                "reason": "ResourcesDiscovered",
+                "status": "False",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2022-11-16T08:31:25Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2022-11-16T08:31:25Z",
+                "message": "All content successfully deleted, may be waiting on finalization",
+                "reason": "ContentDeleted",
+                "status": "False",
+                "type": "NamespaceDeletionContentFailure"
+            },
+            {
+                "lastTransitionTime": "2022-11-16T08:31:25Z",
+                "message": "Some resources are remaining: engineimages.longhorn.io has 1 resource instances, nodes.longhorn.io has 1 resource instances",
+                "reason": "SomeResourcesRemain",
+                "status": "True",
+                "type": "NamespaceContentRemaining"
+            },
+            {
+                "lastTransitionTime": "2022-11-16T08:31:25Z",
+                "message": "Some content in the namespace has finalizers remaining: longhorn.io in 2 resource instances",
+                "reason": "SomeFinalizersRemain",
+                "status": "True",
+                "type": "NamespaceFinalizersRemaining"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}
