@@ -1,9 +1,13 @@
 # Install Kubernetes Cluster using kubeadm
 
 [The Easy Way to Install Kubernetes 1.22 and containerd](https://medium.com/itnext/the-easy-way-to-install-kubernetes-1-22-and-containerd-fec2d07912bd)
+
+```
+curl -L https://github.com/kubesphere/kubekey/releases/download/v1.2.0-alpha.4/kubekey-v1.2.0-alpha.4-linux-amd64.tar.gz > installer.tar.gz && tar -zxf installer.tar.gz
+export KKZONE=cn # Run the following command first to make sure you download KubeKey from the correct zone
 apt install conntrack
 apt install socat
-```./kk create cluster --with-kubernetes v1.22.1 --yes --skip-pull-images
+./kk create cluster --with-kubernetes v1.22.1 --yes --skip-pull-images
 ```
 
 
