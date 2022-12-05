@@ -3,18 +3,14 @@
 
 ### Kubernetes
 
-
-
+---------------------------------------
 ## Mysql
- * [Demo1](###Demo1)
- * [Demo2](###Demo2)
- * [Demo3](###Demo3)
- * [Demo4](###Demo4)
- * [Demo5](###Demo5)
- * [Demo6](###Demo6)
- * [Demo7](###Demo7)
- * [Demo8](###Demo8)
- * [Demo9](###Demo9)
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Downloads][npm-downloads-image]][npm-url]
+[![Node.js Version][node-image]][node-url]
+[![Linux Build][github-actions-ci-image]][github-actions-ci-url]
+[![Windows Build][appveyor-image]][appveyor-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 ### [Demo1](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo001.txt)
 - 1、什么是数据库？什么是数据库管理系统？什么是SQL？他们之间的关系是什么？
