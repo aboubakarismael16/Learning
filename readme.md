@@ -3,9 +3,23 @@
 
 ### Kubernetes
 
+| contents                      |                detail                                              |
+| ----------------------------- | ------------------------------------------------------------ |
+| install-cluster-Ubuntu20      | [setup cluster](https://github.com/aboubakarismael16/Learning/blob/main/K8s/install-cluster-Ubuntu20.md) |
+| k8s-1.24.sh                   | [install kubernetes 1.24](https://github.com/aboubakarismael16/Learning/blob/main/K8s/k8s-1.24.sh) |
+| kuberntes in action           | [Kubernetes核心实战](https://github.com/aboubakarismael16/Learning/blob/main/K8s/k8s-in-Action.md) |
+| kubernetes_setup_using_eksctl | [Setup Kubernetes on Amazon EKS](https://github.com/aboubakarismael16/Learning/blob/main/K8s/kubernetes_setup_using_eksctl.md) |
+| vm                            | [vm is use to monitoring](https://github.com/aboubakarismael16/Learning/tree/main/K8s/vm) |
+| openkruise                    | [openkruise is open-source project](https://github.com/aboubakarismael16/Learning/tree/main/K8s/openkruise) |
+| multipass                     | [multipass is bunch of files that content a lot of projects](https://github.com/aboubakarismael16/Learning/tree/main/K8s/multipass) |
+| efk                           | [elasticsearch-fluentd-kibana](https://github.com/aboubakarismael16/Learning/tree/main/K8s/efk) |
+| prometheus                    | [prometheus and grafana for monitoring](https://github.com/aboubakarismael16/Learning/tree/main/K8s/prometheus) |
+
+
+
 ---------------------------------------
 ## Mysql
-![mysql](docs/imgs/mysql.png)
+
 
 ### [Demo1](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo001.txt)
 - 1、什么是数据库？什么是数据库管理系统？什么是SQL？他们之间的关系是什么？
