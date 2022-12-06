@@ -1,31 +1,30 @@
 # Learning note 🐣🐣🐣
 
+## Kubernetes
 
-## Kubernetes img src="/docs/imgs/kubernetes-icon.svg" style="zoom:50%;" />
 [Kubernetes](https://kubernetes.io/docs/concepts/overview/), also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.
-
 
 ---
 
-| contents                      |                detail                                              |
-| ----------------------------- | ------------------------------------------------------------ |
-| install-cluster-Ubuntu20      | [setup cluster](https://github.com/aboubakarismael16/Learning/blob/main/K8s/install-cluster-Ubuntu20.md) |
-| k8s-1.24.sh                   | [install kubernetes 1.24](https://github.com/aboubakarismael16/Learning/blob/main/K8s/k8s-1.24.sh) |
-| kuberntes in action           | [Kubernetes核心实战](https://github.com/aboubakarismael16/Learning/blob/main/K8s/k8s-in-Action.md) |
-| kubernetes_setup_using_eksctl | [Setup Kubernetes on Amazon EKS](https://github.com/aboubakarismael16/Learning/blob/main/K8s/kubernetes_setup_using_eksctl.md) |
-| vm                            | [vm is use to monitoring](https://github.com/aboubakarismael16/Learning/tree/main/K8s/vm) |
-| openkruise                    | [openkruise is open-source project](https://github.com/aboubakarismael16/Learning/tree/main/K8s/openkruise) |
+
+| contents                      | detail                                                                                                                              |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| install-cluster-Ubuntu20      | [setup cluster](https://github.com/aboubakarismael16/Learning/blob/main/K8s/install-cluster-Ubuntu20.md)                            |
+| k8s-1.24.sh                   | [install kubernetes 1.24](https://github.com/aboubakarismael16/Learning/blob/main/K8s/k8s-1.24.sh)                                  |
+| kuberntes in action           | [Kubernetes核心实战](https://github.com/aboubakarismael16/Learning/blob/main/K8s/k8s-in-Action.md)                                  |
+| kubernetes_setup_using_eksctl | [Setup Kubernetes on Amazon EKS](https://github.com/aboubakarismael16/Learning/blob/main/K8s/kubernetes_setup_using_eksctl.md)      |
+| vm                            | [vm is use to monitoring](https://github.com/aboubakarismael16/Learning/tree/main/K8s/vm)                                           |
+| openkruise                    | [openkruise is open-source project](https://github.com/aboubakarismael16/Learning/tree/main/K8s/openkruise)                         |
 | multipass                     | [multipass is bunch of files that content a lot of projects](https://github.com/aboubakarismael16/Learning/tree/main/K8s/multipass) |
-| efk                           | [elasticsearch-fluentd-kibana](https://github.com/aboubakarismael16/Learning/tree/main/K8s/efk) |
-| prometheus                    | [prometheus and grafana for monitoring](https://github.com/aboubakarismael16/Learning/tree/main/K8s/prometheus) |
+| efk                           | [elasticsearch-fluentd-kibana](https://github.com/aboubakarismael16/Learning/tree/main/K8s/efk)                                     |
+| prometheus                    | [prometheus and grafana for monitoring](https://github.com/aboubakarismael16/Learning/tree/main/K8s/prometheus)                     |
 
+---
 
-
----------------------------------------
 ## Mysql
 
-
 ### [Demo1](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo001.txt)
+
 - 1、什么是数据库？什么是数据库管理系统？什么是SQL？他们之间的关系是什么？
 - 2、安装MySQL数据库管理系统。
 - 3、MySQL数据库的完美卸载！
@@ -38,6 +37,7 @@
 - 10、导入一下提前准备好的数据
 
 ### [Demo2](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo002.txt)
+
 - 11、关于导入的这几张表？
 - 12、不看表中的数据，只看表的结构，有一个命令：
 - 13、简单查询
@@ -48,6 +48,7 @@
   - 13.5、计算员工年薪？sal * 12
 
 ### [Demo3](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo003.txt)
+
 - 14、条件查询
 - 14.1、什么是条件查询？
   - 14.2、都有哪些条件？
@@ -74,6 +75,7 @@
     - 找出名字中有“_”的？
 
 ### [Demo4](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo004.txt)
+
 - 15、排序
   - 15.1、查询所有员工薪资，排序？
   - 15.2、怎么降序？
@@ -83,36 +85,38 @@
 - 17、数据处理函数
   - 17.1、数据处理函数又被称为单行处理函数
   - 17.2、单行处理函数常见的有哪些？
-     - `lower` 转换小写
-     - `upper` 转换大写
-     - `substr` 取子串（substr( 被截取的字符串, 起始下标,截取的长度)）
-     - `concat`函数进行字符串的拼接
-     - `length` 取长度
-     - `trim` 去空格
-     - `round` 四舍五入
-     - `rand()` 生成随机数
-     - `ifnull` 可以将 `null` 转换成一个具体值
+    - `lower` 转换小写
+    - `upper` 转换大写
+    - `substr` 取子串（substr( 被截取的字符串, 起始下标,截取的长度)）
+    - `concat`函数进行字符串的拼接
+    - `length` 取长度
+    - `trim` 去空格
+    - `round` 四舍五入
+    - `rand()` 生成随机数
+    - `ifnull` 可以将 `null` 转换成一个具体值
 
 ### [Demo5](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo005.txt)
+
 - 18、分组函数（多行处理函数）
 - 19、分组查询（非常重要：五颗星*****）
-	- 19.1、什么是分组查询？
-	- 19.2、将之前的关键字全部组合在一起，来看一下他们的执行顺序？
-	- 19.3、找出每个工作岗位的工资和？
-	- 19.4、找出每个部门的最高薪资
-	- 19.5、找出“每个部门，不同工作岗位”的最高薪资？
-	- 19.6、使用having可以对分完组之后的数据进一步过滤。
-	- 19.7、where没办法的？？？？
+  - 19.1、什么是分组查询？
+  - 19.2、将之前的关键字全部组合在一起，来看一下他们的执行顺序？
+  - 19.3、找出每个工作岗位的工资和？
+  - 19.4、找出每个部门的最高薪资
+  - 19.5、找出“每个部门，不同工作岗位”的最高薪资？
+  - 19.6、使用having可以对分完组之后的数据进一步过滤。
+  - 19.7、where没办法的？？？？
 - 20、大总结（单表的查询学完了）
-	- 执行顺序？
-		- 1. `from`
-		- 2. `where`
-		- 3. `group by`
-		- 4. `having`
-		- 5. `select`
-		- 6. `order by`
+  - 执行顺序？
+    - 1. `from`
+    - 2. `where`
+    - 3. `group by`
+    - 4. `having`
+    - 5. `select`
+    - 6. `order by`
 
 ### [Demo6](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo006.txt)
+
 - 1、把查询结果去除重复记录【distinct】
 - 2、连接查询
   - 2.1、什么是连接查询？
@@ -126,6 +130,7 @@
   - 2.9、三张表，四张表怎么连接？
 
 ### [Demo7](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo007.txt)
+
 - 3、子查询？
   - 3.1、什么是子查询？
   - 3.2、子查询都可以出现在哪里呢？
@@ -152,6 +157,7 @@
   - 7.8、删除数据 `delete` （DML）
 
 ### [Demo8]()
+
 - 1、查询每一个员工的所在部门名称？要求显示员工名和部门名。
 - 2、`insert`语句可以一次插入多条记录吗？【掌握】
 - 3、快速创建表？【了解内容】
@@ -181,6 +187,7 @@
   - 9.8、验证各种隔离级别
 
 ### [Demo9](https://github.com/aboubakarismael16/Learning/blob/main/Mysql/database/demo009.txt)
+
 - 1、索引（index）
   - 1.1、什么是索引？
   - 1.2、索引的实现原理？
@@ -203,6 +210,7 @@
   - 4.5、第三范式
   - 4.6、总结表的设计？
   - 4.7、嘱咐一句话
+
 ## Docker
 
 ## K8s
