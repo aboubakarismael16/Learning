@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-cert  #name of this object
+  namespace: default #same namespace as 
+spec:
+  dnsNames:
+    - hello.nepu.com
+  secretName: example-tls-cert
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
