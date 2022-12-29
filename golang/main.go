@@ -1,43 +1,39 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
+	"net/http"
+	"time"
 )
 
 func main() {
-	inputReader := bufio.NewReader(os.Stdin)
-	fmt.Println("Please input your name: ")
-	input, err := inputReader.ReadString('\n')
-	if err != nil {
-		fmt.Printf("An error occured: %s\n", err)
-		os.Exit(1)
-	} else {
-		name := input[:len(input)-1]
-		fmt.Printf("Hello, %s! What can I do for you?\n", name)
-	}
+	// Print the current time
+	currentTime := time.Now()
+	fmt.Println("Current time:", currentTime.Format(time.RFC1123))
 
-	for {
-		input, err = inputReader.ReadString('\n')
-		if err != nil {
-			fmt.Printf("An error occured: %s\n", err)
-			continue
-		}
-		input = input[:len(input)-1]
-		input = strings.ToLower(input)
-		switch input {
-		case "" :
-			continue
-		case "nothing", "bye":
-			fmt.Println("Bye!")
-			os.Exit(0)
-		case "coffee", "the":
-			fmt.Println("Enjoy your drink")
-			os.Exit(0)
-		default:
-			fmt.Println("Sorry, I didnt catch you")
-		}
+	// Create a new blog post
+	post := NewPost("My First Go Blog Post", "Hello, world!", currentTime)
+
+	// Print the post's title and content
+	fmt.Println("Title:", post.Title)
+	fmt.Println("Content:", post.Content)
+
+	// Start the HTTP server
+	http.ListenAndServe(":8080", nil)
+}
+
+// Post represents a blog post
+type Post struct {
+	Title   string
+	Content string
+	Date    time.Time
+}
+
+// NewPost creates a new Post instance with the given title and content
+func NewPost(title, content string, date time.Time) *Post {
+	return &Post{
+		Title:   title,
+		Content: content,
+		Date:    date,
 	}
 }
