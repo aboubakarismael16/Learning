@@ -68,7 +68,6 @@ spec:
 ```
 
 
-
 ![multi-pod](/K8s/img/multi-pod.png)
 
 # 4、Deployment
@@ -82,8 +81,6 @@ kubectl run mynginx --image=nginx
 kubectl create deployment mytomcat --image=tomcat:8.5.68
 # 自愈能力
 ```
-
-
 
 ## 1、多副本
 
@@ -110,10 +107,6 @@ spec:
         name: nginx
 ```
 
-
-
-
-
 ## 2、扩缩容
 
 ```bash
@@ -122,8 +115,6 @@ kubectl edit deployment my-dep
 
 #修改 replicas
 ```
-
-
 
 ## 3、自愈&故障转移
 
