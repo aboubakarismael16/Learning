@@ -256,7 +256,7 @@ Use the output from __kubeadm token create__ command in previous step from the m
 ubuntu@master:~$ kubectl get nodes
 NAME     STATUS     ROLES    AGE     VERSION
 master   Ready      master   7m10s   v1.18.5
-node1    NotReady   <none>   71s     v1.18.5
+node1    Ready   <none>   71s     v1.18.5
 ```
 
 ##### Get component status
@@ -264,8 +264,8 @@ node1    NotReady   <none>   71s     v1.18.5
 ```shell
 ubuntu@master:~$ kubectl get cs
 NAME                 STATUS    MESSAGE             ERROR
-scheduler            Healthy   ok              
-controller-manager   Healthy   ok              
+scheduler            Healthy   ok            
+controller-manager   Healthy   ok            
 etcd-0               Healthy   {"health":"true"}   
 
 ```
