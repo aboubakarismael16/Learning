@@ -25,17 +25,13 @@ Create an example configuration file
 
 ```
 
-```
-
-```
-
 Follow this documentation to set up a Kubernetes cluster on __Ubuntu 20.04 LTS__.
 
 This documentation guides you in setting up a cluster with one master node and one worker node.
 
 ## Assumptions
 
-```
+```shell
 multipass launch -n master -c 2 -m 2G -d 10G
 multipass launch -n node1 -c 1 -m 1G -d 10G
 ```
@@ -44,7 +40,7 @@ multipass launch -n node1 -c 1 -m 1G -d 10G
 
 ##### Login as `root` user
 
-```
+```shell
 sudo su -
 ```
 
@@ -52,19 +48,19 @@ Perform all the commands as root user unless otherwise specified
 
 ##### Disable Firewall
 
-```
+```shell
 ufw disable
 ```
 
 ##### Disable swap
 
-```
+```shell
 swapoff -a; sed -i '/swap/d' /etc/fstab
 ```
 
 ##### Update sysctl settings for Kubernetes networking
 
-```
+```shell
 cat >>/etc/sysctl.d/kubernetes.conf<<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
@@ -74,7 +70,7 @@ sysctl --system
 
 ##### Install docker engine
 
-```
+```shell
 {
   apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
@@ -131,7 +127,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted univer
 
 ##### Add Apt repository
 
-```
+```shell
 {
     echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
 }
@@ -158,7 +154,7 @@ sudo apt update
 
 ##### Install Kubernetes components
 
-```
+```shell
 apt update && apt install -y kubeadm=1.18.5-00 kubelet=1.18.5-00 kubectl=1.18.5-00
 ```
 
@@ -172,7 +168,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 Hack required to provision K8s v1.15+ in LXC containers
 
-```
+```shell
 {
   mknod /dev/kmsg c 1 11
   echo '#!/bin/sh -e' >> /etc/rc.local
@@ -187,7 +183,7 @@ Hack required to provision K8s v1.15+ in LXC containers
 
 Update the below command with the ip address of kmaster
 
-```
+```shell
 root@master:~# sudo kubeadm init --image-repository=registry.aliyuncs.com/google_containers  --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=10.218.50.66  --kubernetes-version=v1.18.5
 
 W1122 17:11:15.053634   16191 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
@@ -224,13 +220,13 @@ kubeadm join 10.218.50.66:6443 --token mt0bg6.114do561l08t13ok \
 
 ##### Deploy Calico network
 
-```
+```shell
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 ```
 
 ##### Cluster join command
 
-```
+```shell
 root@master:~# kubeadm token create --print-join-command
 W1122 17:15:24.495946   22552 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
 kubeadm join 10.218.50.66:6443 --token xclp7y.eolz1mh3ytgqftby     --discovery-token-ca-cert-hash sha256:ca67dee7ff72399b6006b6e1db985fd730cb3cd2d2047149d2b7a132df6d672c 
@@ -240,7 +236,7 @@ kubeadm join 10.218.50.66:6443 --token xclp7y.eolz1mh3ytgqftby     --discovery-t
 
 If you want to be able to run kubectl commands as non-root user, then as a non-root user perform these
 
-```
+```shell
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -256,7 +252,7 @@ Use the output from __kubeadm token create__ command in previous step from the m
 
 ##### Get Nodes status
 
-```
+```shell
 ubuntu@master:~$ kubectl get nodes
 NAME     STATUS     ROLES    AGE     VERSION
 master   Ready      master   7m10s   v1.18.5
@@ -265,13 +261,13 @@ node1    NotReady   <none>   71s     v1.18.5
 
 ##### Get component status
 
-```
+```shell
 ubuntu@master:~$ kubectl get cs
 NAME                 STATUS    MESSAGE             ERROR
-scheduler            Healthy   ok                
-controller-manager   Healthy   ok                
+scheduler            Healthy   ok              
+controller-manager   Healthy   ok              
 etcd-0               Healthy   {"health":"true"}   
 
 ```
 
-Have Fun!!
+Have Fun Journey 🏄🏄

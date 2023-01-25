@@ -9,4 +9,4 @@ data:
     - name: my-ip-space
       protocol: layer2
       addresses:
-      - 10.218.50.10-10.218.50.250
+      - 10.132.242.121-10.132.242.250
