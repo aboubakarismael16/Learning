@@ -189,7 +189,7 @@ root@master:~# sudo kubeadm init --image-repository=registry.aliyuncs.com/google
 W1122 17:11:15.053634   16191 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
 [init] Using Kubernetes version: v1.18.5
 [preflight] Running pre-flight checks
- [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
 [preflight] Pulling images required for setting up a Kubernetes cluster
 [preflight] This might take a minute or two, depending on the speed of your internet connection
 [preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
@@ -256,7 +256,7 @@ Use the output from __kubeadm token create__ command in previous step from the m
 ubuntu@master:~$ kubectl get nodes
 NAME     STATUS     ROLES    AGE     VERSION
 master   Ready      master   7m10s   v1.18.5
-node1    Ready   <none>   71s     v1.18.5
+node1    Ready      <none>   71s     v1.18.5
 ```
 
 ##### Get component status
@@ -270,4 +270,4 @@ etcd-0               Healthy   {"health":"true"}
 
 ```
 
-Have Fun Journey 🏄🏄
+Have Fun Journey  🏄🏄
