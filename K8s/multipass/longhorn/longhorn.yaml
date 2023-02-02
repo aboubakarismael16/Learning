@@ -3273,7 +3273,7 @@ metadata:
   name: longhorn-frontend
   namespace: longhorn-system
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: longhorn-ui
   ports:
@@ -3710,6 +3710,9 @@ spec:
         readinessProbe:
           tcpSocket:
             port: 9443
+          ## new add 
+          ## initialDelaySeconds: 300
+          ## periodSeconds: 30
         env:
         - name: POD_NAMESPACE
           valueFrom:
