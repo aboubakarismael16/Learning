@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: kube-ops
+data:
+  grafana.ini: |
+    [server]
+    root_url = http://localhost:32712
+    [smtp]
+    enabled = true
+    host = smtp.qq.com:465
+    user = 3500305858@qq.com
+    code = luqmpbxnmeimzarchbe
+    skip_verify = true
+    from_address = 3500305858@qq.com
+    [alerting]
+    enabled = true
+    execute_alerts = true
